@@ -8,7 +8,7 @@ setwd("app/samples/")
 
 v <- lapply(sampleFiles, function(x) (unlist(strsplit(x, "_"))[1:2] ))
 agex <- as.data.frame(do.call(rbind, v))
-age = as.numeric(as.character(agex$V2))
+age = data.frame(as.numeric(as.character(agex$V2)))
 
 wav_files <- lapply(sampleFiles, readWave)
 mono_channels <- lapply(wav_files, function(x) (if(x@stereo == TRUE) mono(x,"left") else x))
@@ -30,6 +30,8 @@ F1 <- data.frame(t(F1[-c(1),]))
 F2 <- data.frame(t(F2[-c(1),]))
 F3 <- data.frame(t(F3[-c(1),]))
 
+ages <- scale(age)
 F1s <- scale(F1)
 F2s <- scale(F2)
 F3s <- scale(F3)
+
